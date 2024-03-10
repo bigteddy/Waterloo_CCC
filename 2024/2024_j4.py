@@ -1,12 +1,12 @@
 alex = input()
 display = input()
-# silly = ""
-# wrong = ""
+
+silly = ""
+wrong = ""
 quiet = ""
+
 org = []
 dis = []
-
-diff = len(alex) - len(display)
 
 for l in display:
     if l not in alex:
@@ -16,27 +16,30 @@ for m in alex:
     if m not in display:
         org.append(m)
         
+org = list(set(org))
+dis = list(set(dis))
+
 # print(org)
 # print(dis)
 
-org_dict = {org.count(i):i for i in org}
-dis_dict = {dis.count(j):j for j in dis}
+display_t = alex.replace(org[0],dis[0])   
 
-# print(org_dict)
-# print(dis_dict)
-
-if diff == 0:   
-    quiet = "-"
+if len(alex) - len(display) != 0:   
+    display_t = display_t.replace(org[1], "")
 else:
-    quiet = org_dict.get(diff)
+    quiet = "-"    
+  
     
-def find_non_key(key, dict_list):
-    for k, v in dict_list.items():
-        if k != key:
-            return v
+if display_t == display:
+    silly = org[0]
+    wrong = dis[0]
+    if len(alex) - len(display) != 0:   
+        quiet = org[1]
+else:
+    silly = org[1]
+    wrong = dis[0]
+    if len(alex) - len(display) != 0:   
+        quiet = org[0]
     
-silly = find_non_key(diff, org_dict) 
-wrong = find_non_key(diff, dis_dict)
-
 print(f"{silly} {wrong}")
 print(f"{quiet}")
